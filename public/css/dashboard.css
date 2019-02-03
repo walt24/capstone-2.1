@@ -1,0 +1,21 @@
+*{
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body{
+	width: 960px;
+	margin: 0 auto;
+}
+
+a{
+	text-decoration: none;
+}
+
+p{
+	font-size: 14px;
+}
+main{
+ display: grid;
+ grid-template-columns: repeat(2,1fr);
+}
