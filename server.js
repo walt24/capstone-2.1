@@ -42,7 +42,7 @@ app.post('/offer',(req,res)=>{
 })
 
 */
-
+		
 app.get('/',(req,res)=>{
 	res.sendFile(__dirname+'/public/html/index.html')
 })
