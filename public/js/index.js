@@ -23,6 +23,7 @@ function init(){
 
 	$("#form1").on("submit",function(event){
 		event.preventDefault();
+		console.log("Form submitted")
 		clearOfferDiv();
 		clearOffersDiv();
 		let category = $("#searchKey").val();

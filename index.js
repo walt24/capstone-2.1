@@ -57,8 +57,10 @@ app.get('/offers',(req,res)=>{
 })
 
 app.get('/offers/:category-:search',(req,res)=>{
+	console.log("Search initiated")
 	let query = {[req.params.category]: req.params.search}
 	models.Offer.find(query,(err,q)=>{
+		console.log(q)
 		if(err){return res.send(err)}
 		return res.send(q)
 	})
