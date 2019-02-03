@@ -16,5 +16,9 @@
     "mongoose": "^5.4.6",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/walt24/capstone-2.1.git"
   }
 }
