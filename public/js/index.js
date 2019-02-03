@@ -1,10 +1,9 @@
-
 function init(){
 	console.log("Jquery init called")
 	clearOfferDiv();
 	clearOffersDiv();
 	
-	$.get('http://localhost:3000/offers',function(data,status,xhr){
+	$.get('http://protected-tor-19699.herokuapp.com/offers',function(data,status,xhr){
 		if(data){
 			loadOffers(data)
 		}
@@ -15,7 +14,7 @@ function init(){
 		event.preventDefault();
 		clearOfferDiv();
 		clearOffersDiv();
-		$.get('http://localhost:3000/offers',function(data,status,xhr){
+		$.get('http://protected-tor-19699.herokuapp.com/offers',function(data,status,xhr){
 			if(data){
 				loadOffers(data)
 			}
@@ -28,7 +27,7 @@ function init(){
 		clearOffersDiv();
 		let category = $("#searchKey").val();
 		let search = $("input[name='searchVal']").val();
-		$.get(`http://localhost:3000/offers/${category}-${search}`,function(data,status,xhr){
+		$.get(`http://protected-tor-19699.herokuapp.com/offers/${category}-${search}`,function(data,status,xhr){
 			if(data){
 				loadOffers(data)
 			}
@@ -41,7 +40,7 @@ function init(){
 		clearOfferDiv()
 		clearOffersDiv()
 		let _id = $(this).attr("data-id");
-		$.get(`http://localhost:3000/offer/${_id}`,function(data,status,xhr){
+		$.get(`http://protected-tor-19699.herokuapp.com/offer/${_id}`,function(data,status,xhr){
 			if(data){
 				singleoffer(data)
 			}
@@ -54,7 +53,7 @@ function init(){
 		clearOffersDiv()
 		let category = $(this).text()
 		console.log(category)
-		$.get(`http://localhost:3000/offers/category-${category}`,function(data,status,xhr){
+		$.get(`http://protected-tor-19699.herokuapp.com/offers/category-${category}`,function(data,status,xhr){
 			if(data){
 				loadOffers(data)
 			}
