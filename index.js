@@ -74,7 +74,7 @@ app.get('/offer/:id',(req,res)=>{
 })
 
 
-app.listen(8080,()=>{
+app.listen(process.env.PORT||8080,()=>{
 	console.log("Server started");
 	mongoose.connect('mongodb://admin:Q123456@ds155424.mlab.com:55424/snatch',{useNewUrlParser: true}).then((err)=>{
 		console.log("Connected to Mlab");
