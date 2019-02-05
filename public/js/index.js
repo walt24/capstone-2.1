@@ -60,6 +60,18 @@ function init(){
 			}
 		});
 	})
+
+	$("main").on("click",".searchByLocation",function(event){
+		event.preventDefault();
+		clearOfferDiv()
+		clearOffersDiv()
+		let location = $(this).text()
+		$.get(`http://protected-tor-19699.herokuapp.com/offers/location-${location}`,function(data,status,xhr){
+			if(data){
+				loadOffers(data)
+			}
+		});
+	})
 	
 
 	let basePicUrl = "https://picsum.photos/250/?image="
@@ -109,7 +121,7 @@ function init(){
 						<p>${offer[x].banner}</p>
 					</div>
 					<div class="OfferLocation">
-						<p>${offer[x].location}</p>
+						<p><a href="" class="searchByLocation">${offer[x].location}</a></p>
 					</div>
 					<div class="offerCategories">
 						<a href="" class="searchByCategory">${offer[x].category}</a>

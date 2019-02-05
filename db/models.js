@@ -1,6 +1,8 @@
 const Biz = require('./biz');
 const Location = require('./location');
 const Offer = require('./offer');
+const User = require('./user')
+
 
 Offer.parser = function(data){
 	return {
@@ -11,5 +13,14 @@ Offer.parser = function(data){
 		description: data.description
 	}
 }
+User.parser = function(data){
+	return {
+		username: data.username,
+		password: data.passoword,
+		email: data.email,
+	}
+}
 
-module.exports = {Location,Biz,Offer}
+
+
+module.exports = {Location,Biz,Offer,User}

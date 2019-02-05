@@ -4,27 +4,19 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const models = require('./db/models');
 const path = require('path');
+const cors = require('cors');
 const app = express();
+
+
+/* passport functions, not working
 const passport = require('passport');
+const localStrategy = require('./login-strategies.js').local
 
 
 
 app.use(passport.initialize())
-app.use(express.static('public'));
+passport.use(localStrategy);
 
-
-app.use(cookieParser());
-
-
-app.get('/dashboard',(req,res)=>{
-	res.sendFile(__dirname+'/public/html/dashboard.html')
-})
-
-app.get('/login',(req,res)=>{
-	res.sendFile(__dirname+'/public/html/login.html')
-})
-
-/*
 app.post('/login',passport.authenticate('login',{ 
 		successRedirect: '/dashboard',
   	failureRedirect: '/login',
@@ -42,11 +34,32 @@ app.post('/offer',(req,res)=>{
 })
 
 */
-		
+
+app.use(express.static('public'));
+app.use(cookieParser());
+app.use(cors());
+
+
 app.get('/',(req,res)=>{
 	res.sendFile(__dirname+'/public/html/index.html')
 })
 
+app.get('/dashboard',(req,res)=>{
+	res.sendFile(__dirname+'/public/html/dashboard.html')
+})
+
+app.get('/login',(req,res)=>{
+	res.sendFile(__dirname+'/public/html/login.html')
+})
+app.get('/sign_up',(req,res)=>{
+	res.sendFile(__dirname+'/public/html/sign_up.html')
+})
+app.post('/sign_up',(req,res)=>{
+	models.User.create(model.User.parser(req.body),(err,user)=>{
+		if(err){return res.send(err)}
+		res.redirect('/login');	
+	})
+})
 
 app.get('/offers',(req,res)=>{
 	models.Offer.find({},(err,q)=>{
