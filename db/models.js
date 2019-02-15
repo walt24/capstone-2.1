@@ -16,7 +16,7 @@ Offer.parser = function(data){
 User.parser = function(data){
 	return {
 		username: data.username,
-		password: data.passoword,
+		password: data.password,
 		email: data.email,
 	}
 }

@@ -5,60 +5,79 @@ const mongoose = require('mongoose');
 const models = require('./db/models');
 const path = require('path');
 const cors = require('cors');
+const jwt = require('jsonwebtoken')
+
 const app = express();
 
+app.use(express.static('public'));
+app.use(cookieParser('euyjb2e897bdl'));
+app.use(bodyParser.urlencoded());
+app.use(cors());
 
-/* passport functions, not working
+//Passport functions
 const passport = require('passport');
-const localStrategy = require('./login-strategies.js').local
-
-
-
+const localStrategy = require('./login-strategies.js').localStrategy;
+const jwtCookieComboStrategy = require('./login-strategies.js').jwtCookieComboStrategy;
 app.use(passport.initialize())
 passport.use(localStrategy);
+passport.use(jwtCookieComboStrategy);
 
-app.post('/login',passport.authenticate('login',{ 
-		successRedirect: '/dashboard',
-  	failureRedirect: '/login',
-  	failureFlash: true
-	})
+
+
+
+app.post('/login',passport.authenticate('local',{ 
+  	session: false,
+  	failureRedirect: '/login'
+	}),(req,res)=>{
+		let token = jwt.sign({user: req.body.username},'euyjb2e897bdl',{algorithm: 'HS384'})
+		res.cookie('jwt',token,{
+            httpOnly: true,
+            signed: true
+        })
+		return res.redirect('/dashboard');
+	}
 )
 
+app.post('/logout',passport.authenticate('jwt-cookiecombo',{session: false}),(req,res)=>{
+		res.clearCookie('jwt')
+		return res.redirect('/login');
+	}
+)
 
+app.get('/dashboard',passport.authenticate('jwt-cookiecombo',{session: false}),(req,res)=>{
+	console.log(req.user);
+	return res.sendFile(__dirname+'/public/html/dashboard.html')
+})
 
-app.post('/offer',(req,res)=>{
+app.post('/offer',passport.authenticate('jwt-cookiecombo',{session: false}),(req,res)=>{
 	models.Offer.create(model.Offer.parser(req.body),(err,q)=>{
 		if(err){ return res.json(err)}
 		return res.send(q);
 	})
 })
 
-*/
 
-app.use(express.static('public'));
-app.use(cookieParser());
-app.use(cors());
+//Public routes
 
 
-app.get('/',(req,res)=>{
-	res.sendFile(__dirname+'/public/html/index.html')
+app.get('/sign_up',(req,res)=>{
+	return res.sendFile(__dirname+'/public/html/sign_up.html')
 })
 
-app.get('/dashboard',(req,res)=>{
-	res.sendFile(__dirname+'/public/html/dashboard.html')
+app.post('/sign_up',(req,res)=>{
+	console.log(req)
+	models.User.create(models.User.parser(req.body),(err,user)=>{
+		if(err){return res.send(err)}
+		return res.redirect('/login');	
+	})
 })
 
 app.get('/login',(req,res)=>{
-	res.sendFile(__dirname+'/public/html/login.html')
+	return res.sendFile(__dirname+'/public/html/login.html')
 })
-app.get('/sign_up',(req,res)=>{
-	res.sendFile(__dirname+'/public/html/sign_up.html')
-})
-app.post('/sign_up',(req,res)=>{
-	models.User.create(model.User.parser(req.body),(err,user)=>{
-		if(err){return res.send(err)}
-		res.redirect('/login');	
-	})
+
+app.get('/',(req,res)=>{
+	res.sendFile(__dirname+'/public/html/index.html')
 })
 
 app.get('/offers',(req,res)=>{
