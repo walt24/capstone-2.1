@@ -1,6 +1,6 @@
 function init(){
 	console.log('js launched')
-	$.get('https://protected-tor-19699.herokuapp.com//dashboard/offers').done((data)=>{
+	$.get('https://protected-tor-19699.herokuapp.com/dashboard/offers').done((data)=>{
 		$('#offers').append(renderOffers(data));
 	})
 
@@ -8,7 +8,7 @@ function init(){
 		e.preventDefault();
 		let id = $(e.target).attr('data_id');
 		
-		$.ajax('https://protected-tor-19699.herokuapp.com//dashboard/offer',{
+		$.ajax('https://protected-tor-19699.herokuapp.com/dashboard/offer',{
 			method: 'post',
 			data: {
 				_id: id
