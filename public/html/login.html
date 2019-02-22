@@ -14,17 +14,35 @@
 <body>
 	<header>
 		<a href="" id="header"><h1>Dashboard</h1></a>
-		<form action="/login" method="post" id="login-form" >
-			<label>Username:</label>
-				<input type="text" name="username">
-				<label>Password:</label>
-				<input type="password" name="password">
-				<input type="submit" name="submit" value="Login">
-		</form>
 	</header>
-	
+	<div class="subHeader">
+		<a href="/">Home</a>
+		<a href="/login">Login</a>
+		<a href="/sign_up">Sign Up</a>
+	</div>
+	<br>
 	<main>
-	
+		<form action="/login" method="post" id="login-form">
+			<div class="row">
+				<div class="col">
+					<label>Username:</label>
+				</div>
+				<div class="col">
+					<input type="text" name="username">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<label>Password:</label>
+				</div>
+				<div class="col">
+					<input type="password" name="password">
+				</div>
+			</div>
+			<div class="row">
+				<input type="submit" name="submit" value="Login">	
+			</div>
+		</form>
 	</main>
 
 	<footer>	

@@ -12,22 +12,105 @@
 <body>
 	<header>
 		<a href="" id="header"><h1>Dashboard</h1></a>
+		<a href="/">Home</a>
+		<a href="/logout" id="logout">Logout</a>
 	</header>
-	
 	<main>
 		<div id="offers">
-			<label>Offers</label>
+			<h2>All Offers</h2>
 		</div>
 		<div id="submitNewOffer">
+			<h2>Submit a new offer</h2>
 			<form action="/offer" method="post" id="newOfferForm">
-				<label>Title:</label><br>
+				<h3>Title:</h3> 
+				<p>Enter the title you want to give your offer.</p>
 				<input type="text" name="title" size="50"><br>
-				<label>Description:</label><br>
+				<h3>Description:</h3>
+				<p> Enter a detailed description of the offer.</p>
 				<textarea name="description" rows="8" cols="48"></textarea><br>
-				<label>Location:</label><br>
-				<input type="text" name="location" size="50"><br>
-				<label>Banner:</label><br>
-				<input type="text" name="banner" size="50"><br><br>
+				<h3>Location:</h3>
+				<p>Enter the location of your offer, must be a city name and state abbreviation.</p>
+				<select name="location" >
+					<option></option>
+					<option value="Alabama">Alabama - AL</option>
+					<option value="Alaska">Alaska - AK</option>
+					<option value="Arizona">Arizona - AZ</option>
+					<option value="Arkansas">Arkansas - AR</option>
+					<option value="California">California - CA</option>
+					<option value="Colorado">Colorado - CO</option>
+					<option value="Connecticut">Connecticut - CT</option>
+					<option value="Delaware">Delaware - DE</option>
+					<option value="Florida">Florida - FL</option>
+					<option value="Georgia">Georgia - GA</option>
+					<option value="Hawaii">Hawaii - HI</option>
+					<option value="Idaho">Idaho - ID</option>
+					<option value="Illinois">Illinois - IL</option>
+					<option value="Indiana">Indiana - IN</option>
+					<option value="Iowa">Iowa - IA</option>
+					<option value="Kansas">Kansas - KS</option>
+					<option value="Kentucky">Kentucky - KY</option>
+					<option value="Louisiana">Louisiana - LA</option>
+					<option value="Maine">Maine - ME</option>
+					<option value="Maryland">Maryland - MD</option>
+					<option value="Massachusetts">Massachusetts - MA</option>
+					<option value="Michigan">Michigan - MI</option>
+					<option value="Minnesota">Minnesota - MN</option>
+					<option value="Mississippi">Mississippi - MS</option>
+					<option value="Missouri">Missouri - MO</option>
+					<option value="Montana">Montana - MT</option>
+					<option value="Nebraska">Nebraska - NE</option>
+					<option value="Nevada">Nevada - NV</option>
+					<option value="New Hampshire">New Hampshire - NH</option>
+					<option value="New Jersey">New Jersey - NJ</option>
+					<option value="New Mexico">New Mexico - NM</option>
+					<option value="New York">New York - NY</option>
+					<option value="North Carolina">North Carolina - NC</option>
+					<option value="North Dakota">North Dakota - ND</option>
+					<option value="Ohio">Ohio - OH</option>
+					<option value="Oklahoma">Oklahoma - OK</option>
+					<option value="Oregon">Oregon - OR</option>
+					<option value="Pennsylvania">Pennsylvania - PA</option>
+					<option value="Rhode Island">Rhode Island - RI</option>
+					<option value="South Carolina">South Carolina - SC</option>
+					<option value="South Dakota">South Dakota - SD</option>
+					<option value="Tennessee">Tennessee - TN</option>
+					<option value="Texas">Texas - TX</option>
+					<option value="Utah">Utah - UT</option>
+					<option value="Vermont">Vermont - VT</option>
+					<option value="Virginia">Virginia - VA</option>
+					<option value="Washington">Washington - WA</option>
+					<option value="West Virginia">West Virginia - WV</option>
+					<option value="Wisconsin">Wisconsin - WI</option>
+					<option value="Wyoming">Wyoming - WY</option>
+					<option value="American Samoa">American Samoa - AS</option>
+					<option value="District of Columbia">District of Columbia - DC</option>
+					<option value="Federated States of Micronesia">Federated States of Micronesia - FM</option>
+					<option value="Guam">Guam - GU</option>
+					<option value="Marshall Islands">Marshall Islands - MH</option>
+					<option value="Northern Mariana Islands">Northern Mariana Islands - MP</option>
+					<option value="Palau">Palau - PW</option>
+					<option value="Puerto Rico">Puerto Rico - PR</option>
+					<option value="Virgin Islands">Virgin Islands - VI</option>
+					<option value="Alberta">Alberta - AB</option>
+					<option value="British Columbia">British Columbia - BC</option>
+					<option value="Manitoba">Manitoba - MB</option>
+					<option value="New Brunswick">New Brunswick - NB</option>
+					<option value="Newfoundland and Labrador">Newfoundland and Labrador - NL</option>
+					<option value="Northwest Territories">Northwest Territories - NT</option>
+					<option value="Nova Scotia">Nova Scotia - NS</option>
+					<option value="Nunavut">Nunavut - NU</option>
+					<option value="Ontario">Ontario - ON</option>
+					<option value="Prince Edward Island">Prince Edward Island - PE</option>
+					<option value="Quebec">Quebec - QC</option>
+					<option value="Saskatchewan">Saskatchewan - SK</option>
+					<option value="Yukon">Yukon - YT</option>
+				</select>
+				<h3>Category:</h3>
+				<p>Enter the category of your offer.</p>
+				<input type="text" name="category" size="50"><br>
+				<h3>Banner:</h3>
+				<p>Type a short, enticing promo for your offer. Must shorter than 2 sentences.</p>
+				<textarea name="banner" rows="3" cols="48"></textarea><br><br>
 				<input id="submitOffer" type="submit" value="New Offer">
 			</form>
 		</div>
@@ -35,5 +118,6 @@
 
 	<footer>	
 	</footer>
+	<script type="text/javascript" src="../js/dashboard.js"></script>
 </body>
 </html>

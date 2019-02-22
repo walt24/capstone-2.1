@@ -25,10 +25,9 @@ passport.use(jwtCookieComboStrategy);
 
 
 
-app.post('/login',passport.authenticate('local',{ 
-  	session: false,
-  	failureRedirect: '/login'
-	}),(req,res)=>{
+//Routes that require authentication
+
+app.post('/login',passport.authenticate('local',{session: false,failureRedirect: '/login'}),(req,res)=>{
 		let token = jwt.sign({user: req.body.username},'euyjb2e897bdl',{algorithm: 'HS384'})
 		res.cookie('jwt',token,{
             httpOnly: true,
@@ -38,21 +37,36 @@ app.post('/login',passport.authenticate('local',{
 	}
 )
 
-app.post('/logout',passport.authenticate('jwt-cookiecombo',{session: false}),(req,res)=>{
+app.get('/logout',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
 		res.clearCookie('jwt')
 		return res.redirect('/login');
 	}
 )
 
-app.get('/dashboard',passport.authenticate('jwt-cookiecombo',{session: false}),(req,res)=>{
+app.get('/dashboard',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
 	console.log(req.user);
 	return res.sendFile(__dirname+'/public/html/dashboard.html')
 })
 
-app.post('/offer',passport.authenticate('jwt-cookiecombo',{session: false}),(req,res)=>{
-	models.Offer.create(model.Offer.parser(req.body),(err,q)=>{
+app.get('/dashboard/offers',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
+	let user = jwt.decode(req.signedCookies.jwt).user;
+	models.Offer.find({username: user,active: true}, (err,offers)=>{
+		return res.json(offers);
+	})
+})
+
+app.post('/dashboard/offer',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
+	models.Offer.findByIdAndUpdate(req.body._id,{active: false}, (err,offer)=>{
+		console.log(offer);
+		return res.json(offer);
+	})
+})
+
+app.post('/offer',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
+	let user = jwt.decode(req.signedCookies.jwt).user;
+	models.Offer.create(models.Offer.parser(req.body,user),(err,q)=>{
 		if(err){ return res.json(err)}
-		return res.send(q);
+		return res.redirect('/dashboard');
 	})
 })
 
@@ -65,7 +79,6 @@ app.get('/sign_up',(req,res)=>{
 })
 
 app.post('/sign_up',(req,res)=>{
-	console.log(req)
 	models.User.create(models.User.parser(req.body),(err,user)=>{
 		if(err){return res.send(err)}
 		return res.redirect('/login');	
@@ -83,14 +96,12 @@ app.get('/',(req,res)=>{
 app.get('/offers',(req,res)=>{
 	models.Offer.find({},(err,q)=>{
 		if(err){return res.send(err)}
-		console.log('offers');
 		return res.send(q)
 	})
 })
 
 app.get('/offers/:category-:search',(req,res)=>{
 	let query = {[req.params.category]: req.params.search}
-	console.log(query);
 	models.Offer.find(query,(err,q)=>{
 		if(err){return res.send(err)}
 		return res.send(q)
@@ -98,7 +109,6 @@ app.get('/offers/:category-:search',(req,res)=>{
 })
 
 app.get('/offer/:id',(req,res)=>{
-	console.log("Offer called")
 	models.Offer.findById(req.params.id,(err,q)=>{
 		if(err){return res.json(err)};
 		console.log(q);

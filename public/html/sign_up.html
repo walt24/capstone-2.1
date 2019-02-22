@@ -15,16 +15,40 @@
 	<header>
 		<a href="" id="header"><h1>Dashboard</h1></a>
 	</header>
-	
+	<div class="subHeader">
+		<a href="/">Home</a>
+		<a href="/login">Login</a>
+		<a href="/sign_up">Sign Up</a>
+	</div>
+	<br>
 	<main>
+		<p>Please sign up to use Snatch.</p>
 		<form action="/sign_up" method="post" id="login-form" >
-				<label>Username:</label>
-				<input type="text" name="username">
-				<label>Password:</label>
-				<input type="password" name="password">
-				<label>email:</label>
-				<input type="emaik" name="email">
-				<input type="submit" name="submit" value="Sign Up">
+			<div class="row">
+				<div class="col">
+					<label>Username:</label>
+				</div>
+				<div class="col">
+					<input type="text" name="username">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<label>Password:</label>
+				</div>
+				<div class="col">	
+					<input type="password" name="password">
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col">
+					<label>Email:</label>
+				</div>
+				<div class="col">
+					<input type="email" name="email">
+				</div>
+			</div>
+			<input type="submit" name="submit" value="Sign Up">
 		</form>
 	</main>
 

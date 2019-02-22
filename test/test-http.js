@@ -4,7 +4,8 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Run HTTP test',function(){
+
+describe('Run HTTP test for all routes',function(){
 	it('Request index page',function(done){
 		chai.request('http://localhost:8080')
 		.get('/')
@@ -24,6 +25,9 @@ describe('Run HTTP test',function(){
 			done();
 		})
 	});
+
+
+
 
 	it('Request sign up page',function(done){
 		chai.request('http://localhost:8080')

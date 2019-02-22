@@ -4,13 +4,16 @@ const Offer = require('./offer');
 const User = require('./user')
 
 
-Offer.parser = function(data){
+Offer.parser = function(data,user){
 	return {
-		bizId: data.bizId,
-		locationId: data.locationId,
+		username: user,
 		type: data.type,
 		title: data.title,
-		description: data.description
+		description: data.description,
+		banner: data.banner,
+		location: data.location,
+		category: data.category,
+		active: true
 	}
 }
 User.parser = function(data){
