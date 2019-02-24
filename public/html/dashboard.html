@@ -13,7 +13,7 @@
 	<header>
 		<a href="" id="header"><h1>Dashboard</h1></a>
 		<a href="/">Home</a>
-		<a href="/logout" id="logout">Logout</a>
+		<a href="/dashboard/logout" id="logout">Logout</a>
 	</header>
 	<main>
 		<div id="offers">
@@ -21,7 +21,7 @@
 		</div>
 		<div id="submitNewOffer">
 			<h2>Submit a new offer</h2>
-			<form action="/offer" method="post" id="newOfferForm">
+			<form action="/dashboard/offer" method="post" id="newOfferForm">
 				<h3>Title:</h3> 
 				<p>Enter the title you want to give your offer.</p>
 				<input type="text" name="title" size="50"><br>

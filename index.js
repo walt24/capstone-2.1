@@ -5,71 +5,24 @@ const mongoose = require('mongoose');
 const models = require('./db/models');
 const path = require('path');
 const cors = require('cors');
-const jwt = require('jsonwebtoken')
 
 const app = express();
-
 app.use(express.static('public'));
 app.use(cookieParser('euyjb2e897bdl'));
 app.use(bodyParser.urlencoded());
 app.use(cors());
 
-//Passport functions
 const passport = require('passport');
 const localStrategy = require('./login-strategies.js').localStrategy;
 const jwtCookieComboStrategy = require('./login-strategies.js').jwtCookieComboStrategy;
+
 app.use(passport.initialize())
 passport.use(localStrategy);
 passport.use(jwtCookieComboStrategy);
 
 
-
-//Routes that require authentication
-
-
-
-app.post('/login',passport.authenticate('local',{session: false,failureRedirect: '/login'}),(req,res)=>{
-		let token = jwt.sign({user: req.body.username},'euyjb2e897bdl',{algorithm: 'HS384'})
-		res.cookie('jwt',token,{
-            httpOnly: true,
-            signed: true
-        })
-		return res.redirect('/dashboard');
-	}
-)
-
-app.get('/logout',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
-		res.clearCookie('jwt')
-		return res.redirect('/login');
-	}
-)
-
-app.get('/dashboard',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
-	console.log(req.user);
-	return res.sendFile(__dirname+'/public/html/dashboard.html')
-})
-
-app.get('/dashboard/offers',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
-	let user = jwt.decode(req.signedCookies.jwt).user;
-	models.Offer.find({username: user,active: true}, (err,offers)=>{
-		return res.json(offers);
-	})
-})
-
-app.post('/dashboard/offer',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
-	models.Offer.findByIdAndUpdate(req.body._id,{active: false}, (err,offer)=>{
-		console.log(offer);
-		return res.json(offer);
-	})
-})
-
-app.post('/offer',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
-	let user = jwt.decode(req.signedCookies.jwt).user;
-	models.Offer.create(models.Offer.parser(req.body,user),(err,q)=>{
-		if(err){ return res.json(err)}
-		return res.redirect('/dashboard');
-	})
-})
+const dashboardRouter = require('./dashboardRouter.js')
+app.use('/dashboard',dashboardRouter)
 
 
 
@@ -126,4 +79,6 @@ app.listen(process.env.PORT||8080,()=>{
 		console.log(err);
 	});
 })
+
+module.exports = app;
 
