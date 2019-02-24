@@ -24,8 +24,9 @@ passport.use(jwtCookieComboStrategy);
 
 
 
-
 //Routes that require authentication
+
+
 
 app.post('/login',passport.authenticate('local',{session: false,failureRedirect: '/login'}),(req,res)=>{
 		let token = jwt.sign({user: req.body.username},'euyjb2e897bdl',{algorithm: 'HS384'})
@@ -71,8 +72,8 @@ app.post('/offer',passport.authenticate('jwt-cookiecombo',{session: false,failur
 })
 
 
-//Public routes
 
+//Public routes
 
 app.get('/sign_up',(req,res)=>{
 	return res.sendFile(__dirname+'/public/html/sign_up.html')
