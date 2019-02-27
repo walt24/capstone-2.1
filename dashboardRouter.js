@@ -4,6 +4,7 @@ const app = require('./index.js');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const models = require('./db/models');
+
 const passport = require('passport');
 const localStrategy = require('./login-strategies.js').localStrategy;
 const jwtCookieComboStrategy = require('./login-strategies.js').jwtCookieComboStrategy;
@@ -27,22 +28,18 @@ router.get('/logout',passport.authenticate('jwt-cookiecombo',{session: false,fai
 )
 
 router.get('/',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
-	console.log(req.user);
 	return res.sendFile(__dirname+'/public/html/dashboard.html')
 })
 
 router.get('/offers',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
 	let user = jwt.decode(req.signedCookies.jwt).user;
-	console.log(user);
 	models.Offer.find({username: user,active: true}, (err,offers)=>{
-		console.log("offer:" + offers)	
 		return res.json(offers);
 	})
 })
 
 router.post('/offer',passport.authenticate('jwt-cookiecombo',{session: false,failureRedirect: '/login'}),(req,res)=>{
 	models.Offer.findByIdAndUpdate(req.body._id,{active: false}, (err,offer)=>{
-		console.log(offer);
 		return res.json(offer);
 	})
 })

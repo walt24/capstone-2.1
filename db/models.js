@@ -4,6 +4,7 @@ const Offer = require('./offer');
 const User = require('./user')
 
 
+
 Offer.parser = function(data,user){
 	return {
 		username: user,
@@ -16,10 +17,10 @@ Offer.parser = function(data,user){
 		active: true
 	}
 }
-User.parser = function(data){
+User.parser = function(data,hash){
 	return {
 		username: data.username,
-		password: data.password,
+		password: hash,
 		email: data.email,
 	}
 }

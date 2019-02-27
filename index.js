@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const models = require('./db/models');
 const path = require('path');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 
 const app = express();
 app.use(express.static('public'));
@@ -33,10 +34,13 @@ app.get('/sign_up',(req,res)=>{
 })
 
 app.post('/sign_up',(req,res)=>{
-	models.User.create(models.User.parser(req.body),(err,user)=>{
-		if(err){return res.send(err)}
-		return res.redirect('/login');	
+	bcrypt.hash(req.body.password,10).then(function(hash){
+		models.User.create(models.User.parser(req.body,hash),(err,user)=>{
+			if(err){return res.send(err)}
+				return res.redirect('/login');	
+		})		
 	})
+
 })
 
 app.get('/login',(req,res)=>{

@@ -1,22 +1,23 @@
 const passport = require('passport');
 const localStategy = require('passport-local').Strategy;
-var jwtCookieComboStrategy = require('passport-jwt-cookiecombo');
- 
+const jwtCookieComboStrategy = require('passport-jwt-cookiecombo');
+const bcrypt = require('bcrypt');
 
 const User = require('./db/user.js');
 
 
 exports.localStrategy = new localStategy(
 	function(username,password,callback){
-		console.log(username + ":" + password)
-		User.findOne({username : username},(err,user)=>{
-			console.log("this is the user"+ user)
+		User.findOne({username : username},(err,user)=>{	
 			if(err){return callback(err)}
 			if(!user){
 				console.log('No user')
-				return callback(null,false,{message: 'Incorrect credentials'})}
-			if(!(user.password == password)){return callback(null,false,{message: 'Incorrect credentials'})}
-			return callback(null,user)	
+				return callback(null,false,{message: 'Incorrect credentials'})
+			}
+			bcrypt.compare(password,user.password).then(function(response){
+				if(!response){return callback(null,false,{message: 'Incorrect credentials'})}
+				return callback(null,user)		
+			})				
 		})
 	}
 )
