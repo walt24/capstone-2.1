@@ -3,10 +3,6 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-body{
-	width: 960px;
-	margin: 0 auto;
-}
 
 a{
 	text-decoration: none;
@@ -15,15 +11,16 @@ a{
 p{
 	font-size: 14px;
 }
+
 header{
 	display: grid;
-	grid-template-columns: repeat(2,1fr);
+	grid-template-columns: repeat(1,1fr);
 	align-items: center;
 }
 
 #offersDiv{
 	display: grid;
-	grid-template-columns: repeat(3,1fr);
+	grid-template-columns: repeat(1,1fr);
 	grid-template-rows: auto;
 }
 
@@ -49,3 +46,88 @@ header{
 	font-size: 11px;
 }
 
+
+@media screen and (min-width: 580px){
+
+
+
+	#offersDiv{
+		display: grid;
+		grid-template-columns: repeat(2,1fr);
+		grid-template-rows: auto;
+	}
+
+	.offerTitle{
+		width: 300px;
+		height: 50px;
+	}
+
+	.offer{
+		float: left;
+		width: 300px;
+		height: 550px;
+		padding: 0 10px 0 10px;
+	}
+
+	.offerImage{
+		width: 250px;
+		height: 250px;
+		border: 1px dotted;
+	}
+
+	.offerCategories{
+		font-size: 11px;
+	}
+
+	body{
+		width: 580px;
+		margin: 0 auto;
+	}
+
+}
+
+
+
+@media screen and (min-width: 960px){
+
+	header{
+		display: grid;
+		grid-template-columns: repeat(2,1fr);
+		align-items: center;
+	}
+
+	
+	#offersDiv{
+		display: grid;
+		grid-template-columns: repeat(3,1fr);
+		grid-template-rows: auto;
+	}
+
+	.offerTitle{
+		width: 300px;
+		height: 50px;
+	}
+
+	.offer{
+		float: left;
+		width: 300px;
+		height: 550px;
+		padding: 0 10px 0 10px;
+	}
+
+	.offerImage{
+		width: 250px;
+		height: 250px;
+		border: 1px dotted;
+	}
+
+	.offerCategories{
+		font-size: 11px;
+	}
+
+	body{
+		width: 960px;
+		margin: 0 auto;
+	}
+
+}
